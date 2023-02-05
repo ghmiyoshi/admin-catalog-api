@@ -6,12 +6,7 @@ import com.fullcycle.catalogo.domain.validation.handler.ThrowsValidationHandler;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CategoryTest {
 
@@ -215,7 +210,7 @@ public class CategoryTest {
     }
 
     @Test
-    public void givenAValidCategory_whenCallUpdate_thenReturnCategoryUpdated() {
+    public void givenAValidCategory_whenCallUpdate_thenReturnCategoryUpdated() throws InterruptedException {
         final var expectedName = "Filmes";
         final var expectedDescription = "A categoria mais assistida";
         final var expectedIsActive = true;
@@ -223,11 +218,12 @@ public class CategoryTest {
         final var aCategory =
                 Category.newCategory("Film", "A categoria", false);
 
-        assertDoesNotThrow(() -> aCategory.validate(new ThrowsValidationHandler()));
-
         final var createdAt = aCategory.getCreatedAt();
         final var updatedAt = aCategory.getUpdatedAt();
 
+        assertDoesNotThrow(() -> aCategory.validate(new ThrowsValidationHandler()));
+
+        Thread.sleep(10L);
         final var actualCategory = aCategory.update(expectedName, expectedDescription, expectedIsActive);
 
         assertDoesNotThrow(() -> actualCategory.validate(new ThrowsValidationHandler()));
@@ -243,7 +239,7 @@ public class CategoryTest {
     }
 
     @Test
-    public void givenAValidCategory_whenCallUpdateToInactive_thenReturnCategoryUpdated() {
+    public void givenAValidCategory_whenCallUpdateToInactive_thenReturnCategoryUpdated() throws InterruptedException {
         final var expectedName = "Filmes";
         final var expectedDescription = "A categoria mais assistida";
         final var expectedIsActive = false;
@@ -258,8 +254,9 @@ public class CategoryTest {
         final var createdAt = aCategory.getCreatedAt();
         final var updatedAt = aCategory.getUpdatedAt();
 
-        final var actualCategory = aCategory.update(expectedName, expectedDescription, expectedIsActive);
+        Thread.sleep(10L);
 
+        final var actualCategory = aCategory.update(expectedName, expectedDescription, expectedIsActive);
         assertDoesNotThrow(() -> actualCategory.validate(new ThrowsValidationHandler()));
 
         assertEquals(aCategory.getId(), actualCategory.getId());
@@ -272,7 +269,7 @@ public class CategoryTest {
     }
 
     @Test
-    public void givenAValidCategory_whenCallUpdateWithInvalidParams_thenReturnCategoryUpdated() {
+    public void givenAValidCategory_whenCallUpdateWithInvalidParams_thenReturnCategoryUpdated() throws InterruptedException {
         final String expectedName = null;
         final var expectedDescription = "A categoria mais assistida";
         final var expectedIsActive = true;
@@ -285,6 +282,7 @@ public class CategoryTest {
         final var createdAt = aCategory.getCreatedAt();
         final var updatedAt = aCategory.getUpdatedAt();
 
+        Thread.sleep(10L);
         final var actualCategory = aCategory.update(expectedName, expectedDescription, expectedIsActive);
 
         assertEquals(aCategory.getId(), actualCategory.getId());

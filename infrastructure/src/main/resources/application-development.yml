@@ -2,10 +2,10 @@ mysql:
   username: root
   password: root
   schema: adm_videos
-  url: localhost:3306
+  url: localhost:13306/adm_videos?useSSL=false&useTimezone=true&serverTimezone=UTC
 
 server:
-  port: 8081
+  port: 8082
   undertow:
     threads:
       worker: 10
