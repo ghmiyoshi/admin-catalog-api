@@ -4,6 +4,7 @@ import com.fullcycle.catalogo.domain.category.Category;
 import com.fullcycle.catalogo.domain.category.CategoryID;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 public record CategoryOutput(
         CategoryID id,
@@ -16,12 +17,12 @@ public record CategoryOutput(
 ) {
     public static CategoryOutput from(final Category aCategory) {
         return new CategoryOutput(aCategory.getId(),
-                aCategory.getName(),
-                aCategory.getDescription(),
-                aCategory.isActive(),
-                aCategory.getCreatedAt(),
-                aCategory.getUpdatedAt(),
-                aCategory.getDeletedAt());
+                                  aCategory.getName(),
+                                  aCategory.getDescription(),
+                                  aCategory.isActive(),
+                                  aCategory.getCreatedAt().plusNanos(500).truncatedTo(ChronoUnit.MICROS),
+                                  aCategory.getUpdatedAt().plusNanos(500).truncatedTo(ChronoUnit.MICROS),
+                                  aCategory.getDeletedAt());
     }
 
 }

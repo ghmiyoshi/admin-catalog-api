@@ -19,12 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.Mockito.reset;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
-/* Com essa anotacao, nao preciso instanciar DefaultCreateCategoryUseCase e nem criar
+/* Com essa anotacao, nao preciso instanciar DefaultCreateCategoryUseCase e
+nem criar
 CategoryGateway como mock Mockito.mock(CategoryGateway.class); */
 @ExtendWith(MockitoExtension.class)
 class CreateCategoryUseCaseTest {
@@ -58,8 +56,10 @@ class CreateCategoryUseCaseTest {
         verify(categoryGateway, times(1)).create(argThat(aCategory ->
                 Objects.equals(expectedName, aCategory.getName())
                         && nonNull(aCategory.getId())
-                        && Objects.equals(expectedIsActive, aCategory.isActive())
-                        && Objects.equals(expectedDescription, aCategory.getDescription())
+                        && Objects.equals(expectedIsActive,
+                        aCategory.isActive())
+                        && Objects.equals(expectedDescription,
+                        aCategory.getDescription())
                         && nonNull(aCategory.getCreatedAt())
                         && nonNull(aCategory.getUpdatedAt())
                         && isNull(aCategory.getDeletedAt())
@@ -101,8 +101,10 @@ class CreateCategoryUseCaseTest {
         verify(categoryGateway, times(1)).create(argThat(aCategory ->
                 Objects.equals(expectedName, aCategory.getName())
                         && nonNull(aCategory.getId())
-                        && Objects.equals(expectedIsActive, aCategory.isActive())
-                        && Objects.equals(expectedDescription, aCategory.getDescription())
+                        && Objects.equals(expectedIsActive,
+                        aCategory.isActive())
+                        && Objects.equals(expectedDescription,
+                        aCategory.getDescription())
                         && nonNull(aCategory.getCreatedAt())
                         && nonNull(aCategory.getUpdatedAt())
                         && nonNull(aCategory.getDeletedAt())
@@ -130,8 +132,10 @@ class CreateCategoryUseCaseTest {
         verify(categoryGateway, times(1)).create(argThat(aCategory ->
                 Objects.equals(expectedName, aCategory.getName())
                         && nonNull(aCategory.getId())
-                        && Objects.equals(expectedIsActive, aCategory.isActive())
-                        && Objects.equals(expectedDescription, aCategory.getDescription())
+                        && Objects.equals(expectedIsActive,
+                        aCategory.isActive())
+                        && Objects.equals(expectedDescription,
+                        aCategory.getDescription())
                         && nonNull(aCategory.getCreatedAt())
                         && nonNull(aCategory.getUpdatedAt())
                         && isNull(aCategory.getDeletedAt())

@@ -5,7 +5,7 @@ mysql:
   url: localhost:13306/adm_videos?useSSL=false&useTimezone=true&serverTimezone=UTC
 
 server:
-  port: 8082
+  port: 8080
   undertow:
     threads:
       worker: 10

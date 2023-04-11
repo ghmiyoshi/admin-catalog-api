@@ -31,6 +31,8 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":application"))
 
+    implementation 'io.vavr:vavr:0.10.4'
+
     implementation('mysql:mysql-connector-java')
 
     implementation('org.springframework.boot:spring-boot-starter-web') {
@@ -42,6 +44,9 @@ dependencies {
 
     testRuntimeOnly('com.h2database:h2')
     testImplementation('org.flywaydb:flyway-core')
+
+    implementation('org.springdoc:springdoc-openapi-webmvc-core:1.6.8')
+    implementation('org.springdoc:springdoc-openapi-ui:1.6.8')
 }
 
 flyway {

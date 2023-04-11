@@ -13,6 +13,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -41,7 +43,7 @@ class GetCategoryByIdUseCaseTest {
         final var expectedDescription = "A categoria mais assistida";
         final var expectedIsActive = true;
         final var aCategory = Category.newCategory(expectedName,
-                expectedDescription, expectedIsActive);
+                                                   expectedDescription, expectedIsActive);
 
         final var expectedId = aCategory.getId();
 
@@ -52,8 +54,8 @@ class GetCategoryByIdUseCaseTest {
         assertEquals(expectedName, actualCategory.name());
         assertEquals(expectedDescription, actualCategory.description());
         assertEquals(expectedIsActive, actualCategory.isActive());
-        assertEquals(aCategory.getCreatedAt(), actualCategory.createdAt());
-        assertEquals(aCategory.getUpdatedAt(), actualCategory.updatedAt());
+        assertEquals(roundMicros(aCategory.getCreatedAt()), actualCategory.createdAt());
+        assertEquals(roundMicros(aCategory.getUpdatedAt()), actualCategory.updatedAt());
         assertEquals(aCategory.getDeletedAt(), actualCategory.deletedAt());
         assertEquals(CategoryOutput.from(aCategory), actualCategory);
     }
@@ -65,7 +67,7 @@ class GetCategoryByIdUseCaseTest {
 
         when(categoryGateway.findById(eq(expectedId))).thenReturn(Optional.empty());
         final var domainException = assertThrows(DomainException.class,
-                () -> useCase.execute(expectedId.getValue()));
+                                                 () -> useCase.execute(expectedId.getValue()));
 
         assertEquals(expectedErrorMessage, domainException.getMessage());
     }
@@ -76,9 +78,14 @@ class GetCategoryByIdUseCaseTest {
         final var expectedId = CategoryID.from("123");
 
         when(categoryGateway.findById(eq(expectedId))).thenThrow(new IllegalStateException(expectedErrorMessage));
-        final var illegalStateException = assertThrows(IllegalStateException.class, () -> useCase.execute(expectedId.getValue()));
+        final var illegalStateException = assertThrows(IllegalStateException.class,
+                                                       () -> useCase.execute(expectedId.getValue()));
 
         assertEquals(expectedErrorMessage, illegalStateException.getMessage());
+    }
+
+    private Instant roundMicros(Instant instant) {
+        return instant.plusNanos(500).truncatedTo(ChronoUnit.MICROS);
     }
 
 }

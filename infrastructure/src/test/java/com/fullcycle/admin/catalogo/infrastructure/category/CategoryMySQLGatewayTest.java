@@ -1,6 +1,6 @@
 package com.fullcycle.admin.catalogo.infrastructure.category;
 
-import com.fullcycle.admin.catalogo.infrastructure.MySQLGatewayTest;
+import com.fullcycle.admin.catalogo.MySQLGatewayTest;
 import com.fullcycle.admin.catalogo.infrastructure.category.persistence.CategoryJpaEntity;
 import com.fullcycle.admin.catalogo.infrastructure.category.persistence.CategoryRepository;
 import com.fullcycle.catalogo.domain.category.Category;
